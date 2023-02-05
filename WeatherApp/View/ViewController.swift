@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: -ViewController Class
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITabBarDelegate {
 
     // MARK: -Define
     
@@ -82,12 +82,33 @@ class HomeViewController: UIViewController {
         return imageView
     }()
     
+    var imgDetailsBackgroundTwo: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "tab-bar-background"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+   // MARK: -Views Defined
     var tabBarView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    var hourlyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var weeklyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
+    // MARK: -Buttons Defined
     var btnAdd: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "add-button-image"), for: UIControl.State.normal)
@@ -119,10 +140,44 @@ class HomeViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: -Custom TabBar
+    let detailsTabBar: UITabBar = {
+        let tabBar = UITabBar()
+        tabBar.translatesAutoresizingMaskIntoConstraints = false
+        tabBar.barTintColor = .clear
+        tabBar.backgroundColor = .clear
+        tabBar.isTranslucent = true
+        tabBar.backgroundImage = UIImage()
+        tabBar.shadowImage = UIImage()
+        tabBar.tintColor = .white
+        return tabBar
+    }()
+    
+    var hourlyItem: UITabBarItem = {
+        let item = UITabBarItem(title: "Hourly Forecast", image: nil, selectedImage: nil)
+        item.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.fontSFProDisplay(size: 15)], for: .normal)
+        item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -15, right: 0)
+        item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -15)
+        return item
+    }()
+    
+    var weeklyItem: UITabBarItem = {
+        let item = UITabBarItem(title: "Weekly Forecast", image: nil, selectedImage: nil)
+        item.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.fontSFProDisplay(size: 15)], for: .normal)
+        item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -15, right: 0)
+        item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -15)
+        return item
+    }()
+    
+    // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        detailsTabBar.delegate = self
+        
+        
         // MARK: Constraints
         imgBackground.imgBackgroundConstraints(view)
         
@@ -136,8 +191,13 @@ class HomeViewController: UIViewController {
         
         detailStackView.stackViewConstraints(view)
         
-        detailStackView.addArrangedSubview(imgDetailsBackground)
-        imgDetailsBackground.imgDetailsBackgroundConstraints(view)
+        detailStackView.addArrangedSubview(hourlyView)
+        hourlyView.detailsViewConstraints(view, imgView: imgDetailsBackground)
+        imgDetailsBackground.imgDetailsBackgroundConstraints(hourlyView)
+        
+        detailStackView.addArrangedSubview(weeklyView)
+        weeklyView.detailsViewConstraints(view, imgView: imgDetailsBackgroundTwo)
+        imgDetailsBackgroundTwo.imgDetailsBackgroundConstraints(weeklyView)
         
         detailStackView.addArrangedSubview(tabBarView)
         tabBarView.tabBarViewConstraints(view)
@@ -145,6 +205,26 @@ class HomeViewController: UIViewController {
         btnAdd.btnAddConstraints(tabBarView: tabBarView)
         btnLocation.btnLocationConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
         btnList.btnListConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
+        
+        detailsTabBar.items = [hourlyItem, weeklyItem]
+        detailsTabBar.selectedItem = hourlyItem
+        detailsTabBar.detailsTabBarConstraints(view, img: imgDetailsBackground)
+        
+        hourlyView.isHidden = false
+        weeklyView.isHidden = true
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.title{
+        case "Hourly Forecast":
+            hourlyView.isHidden = false
+            weeklyView.isHidden = true
+        case "Weekly Forecast":
+            hourlyView.isHidden = true
+            weeklyView.isHidden = false
+        default:
+            break
+        }
     }
 }
 
@@ -201,11 +281,19 @@ public extension UIView{
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    func imgDetailsBackgroundConstraints(_ view: UIView){
+    func detailsViewConstraints(_ view: UIView, imgView: UIImageView){
         view.addSubview(self)
         leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        heightAnchor.constraint(equalToConstant: imgView.frame.size.height).isActive = true
+    }
+    
+    func imgDetailsBackgroundConstraints(_ detailsView: UIView){
+        detailsView.addSubview(self)
+        leadingAnchor.constraint(equalTo: detailsView.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: detailsView.trailingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: detailsView.bottomAnchor).isActive = true
     }
     
     func tabBarViewConstraints(_ view: UIView){
@@ -234,6 +322,12 @@ public extension UIView{
         leadingAnchor.constraint(equalTo: btnAdd.trailingAnchor).isActive = true
     }
     
+    func detailsTabBarConstraints(_ view: UIView, img: UIImageView){
+        view.addSubview(self)
+        leadingAnchor.constraint(equalTo: img.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: img.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: img.topAnchor).isActive = true
+    }
 }
 
 // MARK: -Custom Font
