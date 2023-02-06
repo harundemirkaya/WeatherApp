@@ -111,7 +111,7 @@ public extension UIView{
     
     func scrollViewConstraints(_ view: UIView, tabBar: UITabBar){
         view.addSubview(self)
-        topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
+        topAnchor.constraint(equalTo: tabBar.bottomAnchor, constant: 15).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         leadingAnchor.constraint(equalTo: tabBar.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: tabBar.trailingAnchor).isActive = true
@@ -142,5 +142,17 @@ public extension UIView{
         view.addSubview(self)
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
+    }
+    
+    func separatorConstraints(_ view: UIView, tabBar: UITabBar){
+        view.addSubview(self)
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
+    }
+    
+    func underLineConstraints(_ view: UIView, tabBar: UITabBar){
+        view.addSubview(self)
+        trailingAnchor.constraint(equalTo: tabBar.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
     }
 }

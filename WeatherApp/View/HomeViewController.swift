@@ -204,6 +204,20 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     
     var scrollItemsWeekly: [UIView] = []
     
+    var underLine: UIImageView = {
+        let imgView = UIImageView(image: UIImage(named: "underline"))
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
+    }()
+    
+    var separator: UIImageView = {
+        let imgView = UIImageView(image: UIImage(named: "separator"))
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
+    }()
+    
+    var underLineTemp = 0
+    
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -244,6 +258,8 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         detailsTabBar.items = [hourlyItem, weeklyItem]
         detailsTabBar.selectedItem = hourlyItem
         detailsTabBar.detailsTabBarConstraints(view, img: imgDetailsBackground)
+        separator.separatorConstraints(view, tabBar: detailsTabBar)
+        underLine.underLineConstraints(view, tabBar: detailsTabBar)
         
         // MARK: TabBar View
         hourlyView.isHidden = false
@@ -264,9 +280,17 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         case "Hourly Forecast":
             hourlyView.isHidden = false
             weeklyView.isHidden = true
+            if underLineTemp == 1{
+                underLine.transform = underLine.transform.rotated(by: .pi)
+                underLineTemp = 0
+            }
         case "Weekly Forecast":
             hourlyView.isHidden = true
             weeklyView.isHidden = false
+            if underLineTemp == 0{
+                underLine.transform = underLine.transform.rotated(by: .pi)
+                underLineTemp = 1
+            }
         default:
             break
         }
