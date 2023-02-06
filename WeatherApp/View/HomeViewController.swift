@@ -171,35 +171,35 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     
     // MARK: -ScrollView Defined
     let scrollViewHourly: UIScrollView = {
-        let v = UIScrollView()
-        v.contentInset = .zero
-        v.contentOffset = .zero
-        v.isPagingEnabled = true
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        let view = UIScrollView()
+        view.contentInset = .zero
+        view.contentOffset = .zero
+        view.isPagingEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let contentViewHourly: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     var scrollItemsHourly: [UIView] = []
     
     let scrollViewWeekly: UIScrollView = {
-        let v = UIScrollView()
-        v.contentInset = .zero
-        v.contentOffset = .zero
-        v.isPagingEnabled = true
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        let view = UIScrollView()
+        view.contentInset = .zero
+        view.contentOffset = .zero
+        view.isPagingEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let contentViewWeekly: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     var scrollItemsWeekly: [UIView] = []
@@ -254,6 +254,9 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         btnLocation.btnLocationConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
         btnList.btnListConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
         
+        // MARK: Button Target
+        btnAdd.addTarget(self, action: #selector(addCityTarget), for: UIControl.Event.touchUpInside)
+        
         // MARK: TabBar Config
         detailsTabBar.items = [hourlyItem, weeklyItem]
         detailsTabBar.selectedItem = hourlyItem
@@ -273,6 +276,12 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
         scrollViewSetup(weekOrHour: "Week", scrollItems: scrollItemsWeekly, contentView: contentViewWeekly)
+    }
+    
+    @objc func addCityTarget(){
+        let addCityVC = AddCityViewController()
+        addCityVC.modalPresentationStyle = .fullScreen
+        present(addCityVC, animated: true)
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

@@ -17,6 +17,8 @@
 		4FD979E32991153A001AEC13 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E22991153A001AEC13 /* Constraints.swift */; };
 		4FD979E52991156C001AEC13 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E42991156C001AEC13 /* Fonts.swift */; };
 		4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */; };
+		4FD979E929912CF0001AEC13 /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E829912CF0001AEC13 /* AddCityViewController.swift */; };
+		4FD979EC2991353B001AEC13 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4FD979E22991153A001AEC13 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		4FD979E42991156C001AEC13 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSetup.swift; sourceTree = "<group>"; };
+		4FD979E829912CF0001AEC13 /* AddCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
+		4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +108,10 @@
 		4F379649298D38A900F60836 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4FD979EA29913503001AEC13 /* TableViewCell */,
 				4F379630298D24B100F60836 /* HomeViewController.swift */,
 				4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */,
+				4FD979E829912CF0001AEC13 /* AddCityViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -117,6 +123,14 @@
 				4FD979E42991156C001AEC13 /* Fonts.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4FD979EA29913503001AEC13 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,7 +205,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD979EC2991353B001AEC13 /* WeatherTableViewCell.swift in Sources */,
 				4FD979E32991153A001AEC13 /* Constraints.swift in Sources */,
+				4FD979E929912CF0001AEC13 /* AddCityViewController.swift in Sources */,
 				4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */,
 				4FD979E52991156C001AEC13 /* Fonts.swift in Sources */,
 				4F379631298D24B100F60836 /* HomeViewController.swift in Sources */,

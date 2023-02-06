@@ -155,4 +155,18 @@ public extension UIView{
         trailingAnchor.constraint(equalTo: tabBar.trailingAnchor).isActive = true
         topAnchor.constraint(equalTo: tabBar.bottomAnchor).isActive = true
     }
+    
+    func addCityLblTitleConstraints(_ view: UIView){
+        view.addSubview(self)
+        topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 45).isActive = true
+    }
+    
+    func weatherTableViewConstraints(_ view: UIView, title: UILabel){
+        view.addSubview(self)
+        topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
 }
