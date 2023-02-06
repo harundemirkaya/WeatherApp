@@ -185,7 +185,24 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         return v
     }()
     
-    var scrollItems: [UIView] = []
+    var scrollItemsHourly: [UIView] = []
+    
+    let scrollViewWeekly: UIScrollView = {
+        let v = UIScrollView()
+        v.contentInset = .zero
+        v.contentOffset = .zero
+        v.isPagingEnabled = true
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    let contentViewWeekly: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    var scrollItemsWeekly: [UIView] = []
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -234,68 +251,13 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         // MARK: ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
         contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
-        scrollViewHourlySetup()
+        scrollViewSetup(weekOrHour: "Hour", scrollItems: scrollItemsHourly, contentView: contentViewHourly)
         
-        
+        scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
+        contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
+        scrollViewSetup(weekOrHour: "Week", scrollItems: scrollItemsWeekly, contentView: contentViewWeekly)
     }
     
-    // MARK: ScrollView Items Hourly Setup
-    func scrollViewHourlySetup(){
-        for i in 1...24{
-            let scrollItem: UIView = {
-                let view = UIView()
-                view.backgroundColor = UIColor(red: 0.28, green: 0.19, blue: 0.62, alpha: 0.3)
-                view.layer.cornerRadius = 30
-                view.layer.borderWidth = 0.1
-                view.layer.borderColor = UIColor.white.cgColor
-                view.translatesAutoresizingMaskIntoConstraints = false
-                return view
-            }()
-        
-            let lblHour: UILabel = {
-                let lbl = UILabel()
-                lbl.translatesAutoresizingMaskIntoConstraints = false
-                lbl.textColor = .white
-                lbl.font = UIFont.fontSFProDisplay(size: 15)
-                lbl.text = "\(i) PM"
-                return lbl
-            }()
-            lblHour.lblHourConstraintsScroll(scrollItem)
-            
-            let imgViewIcon: UIImageView = {
-                let imgView = UIImageView(image: UIImage(named: "rain-icon"))
-                imgView.translatesAutoresizingMaskIntoConstraints = false
-                return imgView
-            }()
-            imgViewIcon.imgViewIconConstraintsScroll(scrollItem)
-            
-            let lblHeat: UILabel = {
-                let lbl = UILabel()
-                lbl.translatesAutoresizingMaskIntoConstraints = false
-                lbl.textColor = .white
-                lbl.font = UIFont.fontSFProDisplay(size: 20)
-                lbl.text = "19°"
-                return lbl
-            }()
-            lblHeat.lblHeatConstraintsScroll(scrollItem)
-            
-            scrollItems.append(scrollItem)
-            contentViewHourly.addSubview(scrollItems.last!)
-            scrollItems.last?.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        for i in 0...23{
-            if i == 0{
-                scrollItems[i].leadingAnchor.constraint(equalTo: contentViewHourly.leadingAnchor, constant: 10).isActive = true
-            } else{
-                scrollItems[i].leadingAnchor.constraint(equalTo:  scrollItems[i-1].trailingAnchor , constant: 10).isActive = true
-            }
-            scrollItems[i].topAnchor.constraint(equalTo: contentViewHourly.topAnchor).isActive = true
-            scrollItems[i].widthAnchor.constraint(equalToConstant: 70).isActive = true
-            scrollItems[i].heightAnchor.constraint(equalToConstant: 160).isActive = true
-        }
-
-    }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title{

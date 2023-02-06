@@ -16,6 +16,7 @@
 		4F379648298D280C00F60836 /* SF-Pro-Display.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F379647298D280C00F60836 /* SF-Pro-Display.ttf */; };
 		4FD979E32991153A001AEC13 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E22991153A001AEC13 /* Constraints.swift */; };
 		4FD979E52991156C001AEC13 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E42991156C001AEC13 /* Fonts.swift */; };
+		4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		4F379647298D280C00F60836 /* SF-Pro-Display.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display.ttf"; sourceTree = "<group>"; };
 		4FD979E22991153A001AEC13 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		4FD979E42991156C001AEC13 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSetup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				4F379630298D24B100F60836 /* ViewController.swift */,
+				4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FD979E32991153A001AEC13 /* Constraints.swift in Sources */,
+				4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */,
 				4FD979E52991156C001AEC13 /* Fonts.swift in Sources */,
 				4F379631298D24B100F60836 /* ViewController.swift in Sources */,
 				4F37962D298D24B100F60836 /* AppDelegate.swift in Sources */,
