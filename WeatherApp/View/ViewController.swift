@@ -207,11 +207,12 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        // MARK: Screen
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        // MARK: TabBar Delegate
         detailsTabBar.delegate = self
-        
         
         // MARK: Constraints
         imgBackground.imgBackgroundConstraints(view)
@@ -221,43 +222,42 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         lblMostlyClear.lblMostlyClearConstraints(view, lblHeat: lblHeat)
         lblHighHeat.lblHighHeat(view, lblMostlyClear: lblMostlyClear)
         lblLowHeat.lblLowHeat(view, lblMostlyClear: lblMostlyClear)
-        
         imgHouse.imgHouseConstraints(view, lblHighorLowHeat: lblHighHeat)
-        
         detailStackView.stackViewConstraints(view)
         
+        // MARK: StackView Added (HourlyView, WeeklyView and TabBarView)
         detailStackView.addArrangedSubview(hourlyView)
         hourlyView.detailsViewConstraints(view, imgView: imgDetailsBackground)
         imgDetailsBackground.imgDetailsBackgroundConstraints(hourlyView)
-        
         detailStackView.addArrangedSubview(weeklyView)
         weeklyView.detailsViewConstraints(view, imgView: imgDetailsBackgroundTwo)
         imgDetailsBackgroundTwo.imgDetailsBackgroundConstraints(weeklyView)
-        
         detailStackView.addArrangedSubview(tabBarView)
         tabBarView.tabBarViewConstraints(view)
         
+        // MARK: TabBar Buttons
         btnAdd.btnAddConstraints(tabBarView: tabBarView)
         btnLocation.btnLocationConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
         btnList.btnListConstraints(tabBarView: tabBarView, btnAdd: btnAdd)
         
+        // MARK: TabBar Config
         detailsTabBar.items = [hourlyItem, weeklyItem]
         detailsTabBar.selectedItem = hourlyItem
         detailsTabBar.detailsTabBarConstraints(view, img: imgDetailsBackground)
         
+        // MARK: TabBar View
         hourlyView.isHidden = false
         weeklyView.isHidden = true
         
-        // MARK: ScrollView
+        // MARK: Hourly ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
         contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
         scrollViewSetup(weekOrHour: "Hour", scrollItems: scrollItemsHourly, contentView: contentViewHourly)
-        
+        // MARK: Weekly ScrollView
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
         scrollViewSetup(weekOrHour: "Week", scrollItems: scrollItemsWeekly, contentView: contentViewWeekly)
     }
-    
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title{
