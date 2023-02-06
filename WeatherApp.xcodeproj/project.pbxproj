@@ -14,9 +14,8 @@
 		4F379639298D24B200F60836 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F379637298D24B200F60836 /* LaunchScreen.storyboard */; };
 		4F379645298D27DB00F60836 /* home-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F379644298D27DB00F60836 /* home-background.png */; };
 		4F379648298D280C00F60836 /* SF-Pro-Display.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F379647298D280C00F60836 /* SF-Pro-Display.ttf */; };
-		4F37964B298D38D400F60836 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F37964A298D38D400F60836 /* AppTabBarController.swift */; };
-		4F37964D298D396300F60836 /* TabBarOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F37964C298D396300F60836 /* TabBarOneViewController.swift */; };
-		4F37964F298D397800F60836 /* TabBarTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F37964E298D397800F60836 /* TabBarTwoViewController.swift */; };
+		4FD979E32991153A001AEC13 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E22991153A001AEC13 /* Constraints.swift */; };
+		4FD979E52991156C001AEC13 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E42991156C001AEC13 /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +28,8 @@
 		4F37963A298D24B200F60836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F379644298D27DB00F60836 /* home-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-background.png"; sourceTree = "<group>"; };
 		4F379647298D280C00F60836 /* SF-Pro-Display.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display.ttf"; sourceTree = "<group>"; };
-		4F37964A298D38D400F60836 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
-		4F37964C298D396300F60836 /* TabBarOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarOneViewController.swift; sourceTree = "<group>"; };
-		4F37964E298D397800F60836 /* TabBarTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarTwoViewController.swift; sourceTree = "<group>"; };
+		4FD979E22991153A001AEC13 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		4FD979E42991156C001AEC13 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +62,7 @@
 		4F37962B298D24B100F60836 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				4FD979E129911515001AEC13 /* Utilities */,
 				4F379649298D38A900F60836 /* View */,
 				4F379642298D27DB00F60836 /* assets */,
 				4F37962C298D24B100F60836 /* AppDelegate.swift */,
@@ -104,11 +103,17 @@
 			isa = PBXGroup;
 			children = (
 				4F379630298D24B100F60836 /* ViewController.swift */,
-				4F37964A298D38D400F60836 /* AppTabBarController.swift */,
-				4F37964C298D396300F60836 /* TabBarOneViewController.swift */,
-				4F37964E298D397800F60836 /* TabBarTwoViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		4FD979E129911515001AEC13 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4FD979E22991153A001AEC13 /* Constraints.swift */,
+				4FD979E42991156C001AEC13 /* Fonts.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,10 +188,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD979E32991153A001AEC13 /* Constraints.swift in Sources */,
+				4FD979E52991156C001AEC13 /* Fonts.swift in Sources */,
 				4F379631298D24B100F60836 /* ViewController.swift in Sources */,
-				4F37964D298D396300F60836 /* TabBarOneViewController.swift in Sources */,
-				4F37964B298D38D400F60836 /* AppTabBarController.swift in Sources */,
-				4F37964F298D397800F60836 /* TabBarTwoViewController.swift in Sources */,
 				4F37962D298D24B100F60836 /* AppDelegate.swift in Sources */,
 				4F37962F298D24B100F60836 /* SceneDelegate.swift in Sources */,
 			);

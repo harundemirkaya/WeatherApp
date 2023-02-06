@@ -169,6 +169,24 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         return item
     }()
     
+    // MARK: -ScrollView Defined
+    let scrollViewHourly: UIScrollView = {
+        let v = UIScrollView()
+        v.contentInset = .zero
+        v.contentOffset = .zero
+        v.isPagingEnabled = true
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    let contentViewHourly: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    var scrollItems: [UIView] = []
+    
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,6 +230,71 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         
         hourlyView.isHidden = false
         weeklyView.isHidden = true
+        
+        // MARK: ScrollView
+        scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
+        contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
+        scrollViewHourlySetup()
+        
+        
+    }
+    
+    // MARK: ScrollView Items Hourly Setup
+    func scrollViewHourlySetup(){
+        for i in 1...24{
+            let scrollItem: UIView = {
+                let view = UIView()
+                view.backgroundColor = UIColor(red: 0.28, green: 0.19, blue: 0.62, alpha: 0.3)
+                view.layer.cornerRadius = 30
+                view.layer.borderWidth = 0.1
+                view.layer.borderColor = UIColor.white.cgColor
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+        
+            let lblHour: UILabel = {
+                let lbl = UILabel()
+                lbl.translatesAutoresizingMaskIntoConstraints = false
+                lbl.textColor = .white
+                lbl.font = UIFont.fontSFProDisplay(size: 15)
+                lbl.text = "\(i) PM"
+                return lbl
+            }()
+            lblHour.lblHourConstraintsScroll(scrollItem)
+            
+            let imgViewIcon: UIImageView = {
+                let imgView = UIImageView(image: UIImage(named: "rain-icon"))
+                imgView.translatesAutoresizingMaskIntoConstraints = false
+                return imgView
+            }()
+            imgViewIcon.imgViewIconConstraintsScroll(scrollItem)
+            
+            let lblHeat: UILabel = {
+                let lbl = UILabel()
+                lbl.translatesAutoresizingMaskIntoConstraints = false
+                lbl.textColor = .white
+                lbl.font = UIFont.fontSFProDisplay(size: 20)
+                lbl.text = "19°"
+                return lbl
+            }()
+            lblHeat.lblHeatConstraintsScroll(scrollItem)
+            
+            scrollItems.append(scrollItem)
+            contentViewHourly.addSubview(scrollItems.last!)
+            scrollItems.last?.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        for i in 0...23{
+            if i == 0{
+                scrollItems[i].leadingAnchor.constraint(equalTo: contentViewHourly.leadingAnchor, constant: 10).isActive = true
+            } else{
+                scrollItems[i].leadingAnchor.constraint(equalTo:  scrollItems[i-1].trailingAnchor , constant: 10).isActive = true
+            }
+            scrollItems[i].topAnchor.constraint(equalTo: contentViewHourly.topAnchor).isActive = true
+            scrollItems[i].widthAnchor.constraint(equalToConstant: 70).isActive = true
+            scrollItems[i].heightAnchor.constraint(equalToConstant: 160).isActive = true
+        }
+
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -228,111 +311,3 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     }
 }
 
-// MARK: -Constraints
-public extension UIView{
-    func imgBackgroundConstraints(_ view: UIView){
-        view.addSubview(self)
-        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    func lblCityNameConstraints(_ view: UIView){
-        view.addSubview(self)
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-    }
-    
-    func lblHeeatConstraints(_ view: UIView, lblCityName: UILabel){
-        view.addSubview(self)
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topAnchor.constraint(equalTo: lblCityName.bottomAnchor, constant: 10).isActive = true
-    }
-    
-    func lblMostlyClearConstraints(_ view: UIView, lblHeat: UILabel){
-        view.addSubview(self)
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topAnchor.constraint(equalTo: lblHeat.bottomAnchor, constant: 10).isActive = true
-    }
-    
-    func lblHighHeat(_ view: UIView, lblMostlyClear: UILabel){
-        view.addSubview(self)
-        topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
-        leadingAnchor.constraint(equalTo: lblMostlyClear.leadingAnchor).isActive = true
-    }
-    
-    func lblLowHeat(_ view: UIView, lblMostlyClear: UILabel){
-        view.addSubview(self)
-        topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
-        trailingAnchor.constraint(equalTo: lblMostlyClear.trailingAnchor).isActive = true
-    }
-    
-    func imgHouseConstraints(_ view: UIView, lblHighorLowHeat: UILabel){
-        view.addSubview(self)
-        topAnchor.constraint(equalTo: lblHighorLowHeat.bottomAnchor, constant: 20).isActive = true
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    func stackViewConstraints(_ view: UIView){
-        view.addSubview(self)
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    func detailsViewConstraints(_ view: UIView, imgView: UIImageView){
-        view.addSubview(self)
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        heightAnchor.constraint(equalToConstant: imgView.frame.size.height).isActive = true
-    }
-    
-    func imgDetailsBackgroundConstraints(_ detailsView: UIView){
-        detailsView.addSubview(self)
-        leadingAnchor.constraint(equalTo: detailsView.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: detailsView.trailingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: detailsView.bottomAnchor).isActive = true
-    }
-    
-    func tabBarViewConstraints(_ view: UIView){
-        view.addSubview(self)
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.1).isActive = true
-    }
-    
-    func btnAddConstraints(tabBarView: UIView){
-        tabBarView.addSubview(self)
-        centerXAnchor.constraint(equalTo: tabBarView.centerXAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: tabBarView.bottomAnchor).isActive = true
-    }
-    
-    func btnLocationConstraints(tabBarView: UIView, btnAdd: UIButton){
-        tabBarView.addSubview(self)
-        bottomAnchor.constraint(equalTo: tabBarView.bottomAnchor, constant: -20).isActive = true
-        trailingAnchor.constraint(equalTo: btnAdd.leadingAnchor, constant: 15).isActive = true
-    }
-    
-    func btnListConstraints(tabBarView: UIView, btnAdd: UIButton){
-        tabBarView.addSubview(self) 
-        bottomAnchor.constraint(equalTo: tabBarView.bottomAnchor, constant: -20).isActive = true
-        leadingAnchor.constraint(equalTo: btnAdd.trailingAnchor).isActive = true
-    }
-    
-    func detailsTabBarConstraints(_ view: UIView, img: UIImageView){
-        view.addSubview(self)
-        leadingAnchor.constraint(equalTo: img.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: img.trailingAnchor).isActive = true
-        topAnchor.constraint(equalTo: img.topAnchor).isActive = true
-    }
-}
-
-// MARK: -Custom Font
-extension UIFont {
-    class func fontSFProDisplay(size: CGFloat) -> UIFont {
-        return UIFont.init(name: "SFProDisplay-Regular", size: size)!
-     }
-}
