@@ -169,4 +169,8 @@ public extension UIView{
         trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    func cellBackgroundViewConstraints(_ view: UIView){
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
 }

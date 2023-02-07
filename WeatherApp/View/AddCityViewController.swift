@@ -37,6 +37,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         table.backgroundColor = .clear
         table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.allowsSelection = false
         return table
     }()
     
@@ -46,6 +47,8 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         NSLocalizedString("dealer", comment: "Dealer Name"),
         NSLocalizedString("dealer", comment: "Dealer Name")
     ]
+    
+    var imgView = UIView()
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -67,7 +70,11 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.contentView.backgroundColor = UIColor.clear
         cell.textLabel?.text = weathers[indexPath.row]
         cell.textLabel?.textColor = .white
+        imgView = (cell.backgroundView)!
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return imgView.frame.size.height + 20
+    }
 }
