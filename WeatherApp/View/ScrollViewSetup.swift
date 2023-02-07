@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 
 // MARK: ScrollView Items Hourly Setup
-func scrollViewSetup(weekOrHour: String, scrollItems: [UIView], contentView: UIView, temperatures: [Measurement<UnitTemperature>]? = nil){
+func scrollViewSetup(weekOrHour: String, scrollItems: inout [UIView], contentView: UIView, temperatures: [Measurement<UnitTemperature>]? = nil){
     
-    var scrollItems = scrollItems
     let weeks = ["Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur", "Sun"]
     var week = 0
     for i in 1...24{

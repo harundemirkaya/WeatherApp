@@ -172,7 +172,7 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     }()
     
     // MARK: -ScrollView Defined
-    let scrollViewHourly: UIScrollView = {
+    var scrollViewHourly: UIScrollView = {
         let view = UIScrollView()
         view.contentInset = .zero
         view.contentOffset = .zero
@@ -299,11 +299,11 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         // MARK: Hourly ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
         contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Hour", scrollItems: self.scrollItemsHourly, contentView: self.contentViewHourly)
+        scrollViewSetup(weekOrHour: "Hour", scrollItems: &scrollItemsHourly, contentView: self.contentViewHourly)
         // MARK: Weekly ScrollView
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Week", scrollItems: self.scrollItemsWeekly, contentView: self.contentViewWeekly)
+        scrollViewSetup(weekOrHour: "Week", scrollItems: &scrollItemsWeekly, contentView: self.contentViewWeekly)
         
         weatherViewModel.homeVC = self
         weatherViewModel.getUserLocation(locationManager: locationManager, delegate: self)
@@ -354,10 +354,12 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
                 temperatures.append(forecast.temperature)
             }
         }
-
-        scrollViewSetup(weekOrHour: "Hour", scrollItems: self.scrollItemsHourly, contentView: self.contentViewHourly, temperatures: temperatures)
-
-        scrollViewSetup(weekOrHour: "Week", scrollItems: self.scrollItemsWeekly, contentView: self.contentViewWeekly, temperatures: temperatures)
+        for i in 0...23{
+            DispatchQueue.main.async {
+                let label = self.scrollItemsHourly[i].subviews[2] as! UILabel
+                label.text = self.temperatures[i].description
+            }
+        }
     }
 
     
