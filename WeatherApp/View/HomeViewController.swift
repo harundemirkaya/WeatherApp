@@ -6,9 +6,11 @@
 //
 // MARK: -Import Libaries
 import UIKit
+import CoreLocation
+import WeatherKit
 
 // MARK: -ViewController Class
-class HomeViewController: UIViewController, UITabBarDelegate {
+class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerDelegate {
 
     // MARK: -Define
     
@@ -204,6 +206,7 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     
     var scrollItemsWeekly: [UIView] = []
     
+    // MARK: -TabBar Underline Defined
     var underLine: UIImageView = {
         let imgView = UIImageView(image: UIImage(named: "underline"))
         imgView.translatesAutoresizingMaskIntoConstraints = false
@@ -217,6 +220,12 @@ class HomeViewController: UIViewController, UITabBarDelegate {
     }()
     
     var underLineTemp = 0
+    
+    // MARK: -Location Manager Defined
+    let locationManager = CLLocationManager()
+    
+    // MARK: -WeatherViewModel Defined
+    var weatherViewModel = WeatherViewModel()
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -276,6 +285,9 @@ class HomeViewController: UIViewController, UITabBarDelegate {
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
         scrollViewSetup(weekOrHour: "Week", scrollItems: scrollItemsWeekly, contentView: contentViewWeekly)
+        
+        weatherViewModel.homeVC = self
+        weatherViewModel.getUserLocation(locationManager: locationManager, delegate: self)
     }
     
     @objc func addCityTarget(){
@@ -304,5 +316,15 @@ class HomeViewController: UIViewController, UITabBarDelegate {
             break
         }
     }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else{
+            return
+        }
+        locationManager.stopUpdatingLocation()
+        weatherViewModel.getWeather(location: location)
+    }
+
+    
 }
 

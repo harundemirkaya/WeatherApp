@@ -178,5 +178,5 @@ public extension UIView{
         view.addSubview(self)
         trailingAnchor.constraint(equalTo: lbl.leadingAnchor, constant: -10).isActive = true
         centerYAnchor.constraint(equalTo: lbl.centerYAnchor).isActive = true
-        }
+    }
 }

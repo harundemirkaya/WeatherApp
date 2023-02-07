@@ -19,6 +19,7 @@
 		4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */; };
 		4FD979E929912CF0001AEC13 /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E829912CF0001AEC13 /* AddCityViewController.swift */; };
 		4FD979EC2991353B001AEC13 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */; };
+		4FE9B710299275B100828040 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE9B70F299275B100828040 /* WeatherViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSetup.swift; sourceTree = "<group>"; };
 		4FD979E829912CF0001AEC13 /* AddCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
 		4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		4FE9B70C299267C600828040 /* WeatherApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = WeatherApp.entitlements; sourceTree = "<group>"; };
+		4FE9B70F299275B100828040 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 		4F37962B298D24B100F60836 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				4FE9B70E2992758F00828040 /* ViewModel */,
 				4FD979E129911515001AEC13 /* Utilities */,
 				4F379649298D38A900F60836 /* View */,
 				4F379642298D27DB00F60836 /* assets */,
@@ -75,6 +79,7 @@
 				4F37962E298D24B100F60836 /* SceneDelegate.swift */,
 				4F379635298D24B200F60836 /* Assets.xcassets */,
 				4F379637298D24B200F60836 /* LaunchScreen.storyboard */,
+				4FE9B70C299267C600828040 /* WeatherApp.entitlements */,
 				4F37963A298D24B200F60836 /* Info.plist */,
 			);
 			path = WeatherApp;
@@ -131,6 +136,14 @@
 				4FD979EB2991353B001AEC13 /* WeatherTableViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		4FE9B70E2992758F00828040 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4FE9B70F299275B100828040 /* WeatherViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FD979EC2991353B001AEC13 /* WeatherTableViewCell.swift in Sources */,
+				4FE9B710299275B100828040 /* WeatherViewModel.swift in Sources */,
 				4FD979E32991153A001AEC13 /* Constraints.swift in Sources */,
 				4FD979E929912CF0001AEC13 /* AddCityViewController.swift in Sources */,
 				4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */,
@@ -349,6 +363,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeatherApp/WeatherApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = USB677SYCW;
@@ -358,7 +374,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,6 +382,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harundemirkaya.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -380,6 +397,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeatherApp/WeatherApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = USB677SYCW;
@@ -389,7 +408,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -397,6 +416,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harundemirkaya.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

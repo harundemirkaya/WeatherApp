@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: -AddCityViewController Class
-class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     // MARK: -Define
     
@@ -50,6 +50,34 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         return btn
     }()
     
+    
+    // MARK: -SearchBar Defined
+    let searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        let placeHolderColor = UIColor(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.60)
+        bar.sizeToFit()
+        bar.searchBarStyle = .minimal
+        bar.layer.cornerRadius = 10
+        bar.searchTextField.font = UIFont.fontSFProDisplay(size: 17)
+        bar.searchTextField.textColor = .white
+        bar.searchTextField.backgroundColor = UIColor(red: 0.11, green: 0.11, blue: 0.20, alpha: 1.00)
+        bar.searchTextField.attributedPlaceholder = NSAttributedString.init(string: "Search for a city or airport", attributes: [NSAttributedString.Key.foregroundColor:placeHolderColor])
+        let imgViewSearchIcon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        imgViewSearchIcon.tintColor = placeHolderColor
+        bar.searchTextField.leftView = imgViewSearchIcon
+        bar.inputAccessoryView?.translatesAutoresizingMaskIntoConstraints = false
+        return bar
+    }()
+    
+    var btnCloseKeyboard: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Close Keyboard", for: UIControl.State.normal)
+        btn.setTitleColor(.black, for: UIControl.State.normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = .white
+        return btn
+    }()
+    
     var weathers: [String] = [
         "19°",
         "19°",
@@ -57,14 +85,14 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         "19°",
     ]
     
-    // MARK: -Cell Height Set Tools
+    // MARK: -Cell Height Set Tools Defined
     var imgView = UIView()
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        
+        btnCloseKeyboard.addTarget(self, action: #selector(closeKeyboard), for: .touchUpInside)
         // MARK: Constraints and AddSubView
         imgBackground.imgBackgroundConstraints(view)
         lblTitle.addCityLblTitleConstraints(view)
@@ -73,6 +101,15 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // MARK: Back Button Target
         btnBack.addTarget(self, action: #selector(btnBackTarget), for: UIControl.Event.touchUpInside)
+        
+        // MARK: Search Bar Config
+        searchBar.delegate = self
+        tableView.tableHeaderView = searchBar
+        searchBar.inputAccessoryView = btnCloseKeyboard
+    }
+    
+    @objc func closeKeyboard(){
+        searchBar.endEditing(true)
     }
     
     @objc func btnBackTarget(){
