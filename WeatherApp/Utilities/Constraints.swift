@@ -173,4 +173,10 @@ public extension UIView{
     func cellBackgroundViewConstraints(_ view: UIView){
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
+    
+    func btnBackConstraints(_ view: UIView, lbl: UILabel){
+        view.addSubview(self)
+        trailingAnchor.constraint(equalTo: lbl.leadingAnchor, constant: -10).isActive = true
+        centerYAnchor.constraint(equalTo: lbl.centerYAnchor).isActive = true
+        }
 }
