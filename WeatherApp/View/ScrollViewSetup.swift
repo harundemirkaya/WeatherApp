@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 // MARK: ScrollView Items Hourly Setup
-func scrollViewSetup(weekOrHour: String, scrollItems: [UIView], contentView: UIView){
+func scrollViewSetup(weekOrHour: String, scrollItems: [UIView], contentView: UIView, temperatures: [Measurement<UnitTemperature>]? = nil){
+    
     var scrollItems = scrollItems
     let weeks = ["Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur", "Sun"]
     var week = 0
@@ -54,7 +55,12 @@ func scrollViewSetup(weekOrHour: String, scrollItems: [UIView], contentView: UIV
             lbl.translatesAutoresizingMaskIntoConstraints = false
             lbl.textColor = .white
             lbl.font = UIFont.fontSFProDisplay(size: 20)
-            lbl.text = "19°"
+            if temperatures == nil{
+                lbl.text = "*"
+            } else{
+                lbl.text = temperatures?[i-1].description
+            }
+            
             return lbl
         }()
         lblHeat.lblHeatConstraintsScroll(scrollItem)

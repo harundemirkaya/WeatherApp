@@ -20,17 +20,24 @@ class WeatherViewModel{
     // MARK: Weather Kit Services Defined
     let service = WeatherService()
     
+    // MARK: Hourly Forecast
+    var weather: Weather?
+    
     // MARK: Weather Kit
     func getWeather(location: CLLocation){
         Task{
             do{
                 let result = try await service.weather(for: location)
-                print(String(describing: result.hourlyForecast.forecast))
-                
+                weather = result
+                setWeather()
             } catch{
                 print(String(describing: error))
             }
         }
+    }
+    
+    func setWeather(){
+        homeVC?.hourlyForecast = weather?.hourlyForecast
     }
     
     func getUserLocation(locationManager: CLLocationManager, delegate: CLLocationManagerDelegate){

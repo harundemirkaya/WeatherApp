@@ -227,6 +227,25 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     // MARK: -WeatherViewModel Defined
     var weatherViewModel = WeatherViewModel()
     
+    // MARK: -Date Defined
+    var date: String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dateString = format.string(from: date)
+        return dateString
+    }
+    
+    // MARK: -HourlyForecast Array Defined
+    var hourlyForecast: Forecast<HourWeather>? {
+        didSet{
+            setData()
+        }
+    }
+    
+    // MARK: -Temperatures Defined
+    var temperatures = [Measurement<UnitTemperature>]()
+    
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -280,11 +299,11 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         // MARK: Hourly ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
         contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Hour", scrollItems: scrollItemsHourly, contentView: contentViewHourly)
+        scrollViewSetup(weekOrHour: "Hour", scrollItems: self.scrollItemsHourly, contentView: self.contentViewHourly)
         // MARK: Weekly ScrollView
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Week", scrollItems: scrollItemsWeekly, contentView: contentViewWeekly)
+        scrollViewSetup(weekOrHour: "Week", scrollItems: self.scrollItemsWeekly, contentView: self.contentViewWeekly)
         
         weatherViewModel.homeVC = self
         weatherViewModel.getUserLocation(locationManager: locationManager, delegate: self)
@@ -323,6 +342,22 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         }
         locationManager.stopUpdatingLocation()
         weatherViewModel.getWeather(location: location)
+    }
+    
+    func setData(){
+        let dateFormatteer = DateFormatter()
+        dateFormatteer.dateFormat = "yyyy-MM-dd"
+        var otherDate = ""
+        for forecast in hourlyForecast!{
+            otherDate = dateFormatteer.string(from: forecast.date)
+            if otherDate.prefix(10) == date{
+                temperatures.append(forecast.temperature)
+            }
+        }
+
+        scrollViewSetup(weekOrHour: "Hour", scrollItems: self.scrollItemsHourly, contentView: self.contentViewHourly, temperatures: temperatures)
+
+        scrollViewSetup(weekOrHour: "Week", scrollItems: self.scrollItemsWeekly, contentView: self.contentViewWeekly, temperatures: temperatures)
     }
 
     
