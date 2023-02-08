@@ -353,19 +353,25 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     }
     
     func setDataHourly(){
-        let dateFormatteer = DateFormatter()
-        dateFormatteer.dateFormat = "yyyy-MM-dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         var otherDate = ""
+        var hours: [String] = []
         for forecast in hourlyForecast!{
-            otherDate = dateFormatteer.string(from: forecast.date)
+            otherDate = dateFormatter.string(from: forecast.date)
             if otherDate.prefix(10) == date{
                 temperaturesHourly.append(forecast.temperature)
+                let dateFormatterHour = DateFormatter()
+                dateFormatterHour.dateFormat = "HH:mm"
+                hours.append(dateFormatterHour.string(from: forecast.date))
             }
         }
         for i in 0...23{
             DispatchQueue.main.async {
-                let label = self.scrollItemsHourly[i].subviews[2] as! UILabel
-                label.text = self.temperaturesHourly[i].description
+                let lblTemperature = self.scrollItemsHourly[i].subviews[2] as! UILabel
+                lblTemperature.text = self.temperaturesHourly[i].description
+                let lblHour = self.scrollItemsHourly[i].subviews[0] as! UILabel
+                lblHour.text = hours[i]
             }
         }
     }

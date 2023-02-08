@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // MARK: ScrollView Items Hourly Setup
-func scrollViewSetupHourly(scrollItems: inout [UIView], contentView: UIView, temperaturesHourly: [Measurement<UnitTemperature>]? = nil, temperaturesWeekly: [Measurement<UnitTemperature>]? = nil, weekDate: [Date]? = nil){
+func scrollViewSetupHourly(scrollItems: inout [UIView], contentView: UIView, temperaturesHourly: [Measurement<UnitTemperature>]? = nil){
     for i in 1...24{
         let scrollItem: UIView = {
             let view = UIView()
@@ -43,12 +43,10 @@ func scrollViewSetupHourly(scrollItems: inout [UIView], contentView: UIView, tem
             lbl.translatesAutoresizingMaskIntoConstraints = false
             lbl.textColor = .white
             lbl.font = UIFont.fontSFProDisplay(size: 15)
-            if (temperaturesHourly == nil) || (temperaturesWeekly == nil){
+            if temperaturesHourly == nil{
                 lbl.text = "*"
             } else if temperaturesHourly != nil{
                 lbl.text = temperaturesHourly?[i-1].description
-            } else if temperaturesWeekly != nil{
-                lbl.text = temperaturesWeekly?[i-1].description
             }
             
             return lbl
@@ -72,7 +70,7 @@ func scrollViewSetupHourly(scrollItems: inout [UIView], contentView: UIView, tem
     }
 }
 
-func scrollViewSetupWeekly(scrollItems: inout [UIView], contentView: UIView, temperaturesHourly: [Measurement<UnitTemperature>]? = nil, temperaturesWeekly: [Measurement<UnitTemperature>]? = nil, weekDate: [Date]? = nil){
+func scrollViewSetupWeekly(scrollItems: inout [UIView], contentView: UIView, temperaturesWeekly: [Measurement<UnitTemperature>]? = nil, weekDate: [Date]? = nil){
     for i in 1...9{
         let scrollItem: UIView = {
             let view = UIView()
@@ -106,10 +104,8 @@ func scrollViewSetupWeekly(scrollItems: inout [UIView], contentView: UIView, tem
             lbl.translatesAutoresizingMaskIntoConstraints = false
             lbl.textColor = .white
             lbl.font = UIFont.fontSFProDisplay(size: 15)
-            if (temperaturesHourly == nil) || (temperaturesWeekly == nil){
+            if temperaturesWeekly == nil{
                 lbl.text = "*"
-            } else if temperaturesHourly != nil{
-                lbl.text = temperaturesHourly?[i-1].description
             } else if temperaturesWeekly != nil{
                 lbl.text = temperaturesWeekly?[i-1].description
             }
