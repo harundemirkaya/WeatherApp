@@ -377,19 +377,25 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     }
     
     func setDataWeekly(){
-        let dateFormatteer = DateFormatter()
-        dateFormatteer.dateFormat = "yyyy-MM-dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         var otherDate = ""
+        var day: [String] = []
         for forecast in weeklyForecast!{
-            otherDate = dateFormatteer.string(from: forecast.date)
+            otherDate = dateFormatter.string(from: forecast.date)
             if otherDate.prefix(10) > date{
                 temperaturesWeekly.append(forecast.highTemperature)
+                let dateFormatterDay = DateFormatter()
+                dateFormatterDay.dateFormat = "EEEE"
+                day.append(dateFormatterDay.string(from: forecast.date))
             }
         }
         for i in 0...8{
             DispatchQueue.main.async {
-                let label = self.scrollItemsWeekly[i].subviews[2] as! UILabel
-                label.text = self.temperaturesWeekly[i].description
+                let lblTemperature = self.scrollItemsWeekly[i].subviews[2] as! UILabel
+                lblTemperature.text = self.temperaturesWeekly[i].description
+                let lblDay = self.scrollItemsWeekly[i].subviews[0] as! UILabel
+                lblDay.text = day[i]
             }
         }
     }

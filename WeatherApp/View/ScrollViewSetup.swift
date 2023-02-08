@@ -26,7 +26,7 @@ func scrollViewSetupHourly(scrollItems: inout [UIView], contentView: UIView, tem
             lbl.translatesAutoresizingMaskIntoConstraints = false
             lbl.textColor = .white
             lbl.font = UIFont.fontSFProDisplay(size: 15)
-            lbl.text = "\(i) PM"
+            lbl.text = "*"
             return lbl
         }()
         lblHour.lblHourConstraintsScroll(scrollItem)
