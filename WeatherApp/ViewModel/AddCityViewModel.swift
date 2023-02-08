@@ -25,6 +25,9 @@ class AddCityViewModel{
     // MARK: -City Weather State Defined
     var cityState = [WeatherCondition]()
     
+    // MARK: -CityCell Model Defined
+    var cityCell = [CityCell]()
+    
     // MARK: -Cities
     let cities = [
                       City(name: "Adana", latitude: 37.00167, longitude: 35.32889),
@@ -114,31 +117,22 @@ class AddCityViewModel{
     let service = WeatherService()
     
     // MARK: Weather Kit
-    func getWeather(){
+    func getWeather() async -> [CityCell]{
         if !cities.isEmpty{
             for i in 0...80{
-                Task{
-                    let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
-                    do{
-                        let result = try await service.weather(for: location)
-                        cityTemperatures.append(result.currentWeather.temperature)
-                        cityHighTemperatures.append(result.dailyForecast[0].highTemperature)
-                        cityLowTemperatures.append(result.dailyForecast[0].lowTemperature)
-                        cityState.append(result.currentWeather.condition)
-                        setWeather()
-                    } catch{
-                        print(String(describing: error))
-                    }
+                let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
+                do{
+                    let result = try await service.weather(for: location)
+                    let city = CityCell(cityName: cities[i].name, temperatures: result.currentWeather.temperature, highTemperatures: result.dailyForecast[0].highTemperature, lowTemperatures: result.dailyForecast[0].lowTemperature, weatherState: result.currentWeather.condition.description)
+                    cityCell.append(city)
+                } catch{
+                    print("")
                 }
+                
             }
+            //addCityVC?.cityCell = cityCell
+            return cityCell
         }
-    }
-    
-    func setWeather(){
-        addCityVC?.cityTemperatures = cityTemperatures
-        addCityVC?.cityHighTemperatures = cityHighTemperatures
-        addCityVC?.cityLowTemperatures = cityLowTemperatures
-        addCityVC?.cityState = cityState
-        addCityVC?.cities = cities
+        return []
     }
 }

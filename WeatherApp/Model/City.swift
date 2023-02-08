@@ -7,7 +7,7 @@
 // MARK: -Import Libaries
 import Foundation
 
-// MARK: -City Class
+// MARK: -City Model Class
 class City{
     var name: String
     var latitude: Double

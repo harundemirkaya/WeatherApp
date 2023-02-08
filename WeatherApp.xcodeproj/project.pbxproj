@@ -17,6 +17,7 @@
 		4FB3D5372993854200633046 /* AddCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D5362993854200633046 /* AddCityViewModel.swift */; };
 		4FB3D53D299390D500633046 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D53C299390D500633046 /* City.swift */; };
 		4FB3D53F2993ACCC00633046 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D53E2993ACCC00633046 /* Spinner.swift */; };
+		4FB3D5412993B86F00633046 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D5402993B86F00633046 /* CityCell.swift */; };
 		4FD979E32991153A001AEC13 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E22991153A001AEC13 /* Constraints.swift */; };
 		4FD979E52991156C001AEC13 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E42991156C001AEC13 /* Fonts.swift */; };
 		4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */; };
@@ -38,6 +39,7 @@
 		4FB3D5362993854200633046 /* AddCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewModel.swift; sourceTree = "<group>"; };
 		4FB3D53C299390D500633046 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		4FB3D53E2993ACCC00633046 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		4FB3D5402993B86F00633046 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		4FD979E22991153A001AEC13 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		4FD979E42991156C001AEC13 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSetup.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				4FB3D53C299390D500633046 /* City.swift */,
+				4FB3D5402993B86F00633046 /* CityCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				4FD979EC2991353B001AEC13 /* WeatherTableViewCell.swift in Sources */,
 				4FE9B710299275B100828040 /* WeatherViewModel.swift in Sources */,
 				4FD979E32991153A001AEC13 /* Constraints.swift in Sources */,
+				4FB3D5412993B86F00633046 /* CityCell.swift in Sources */,
 				4FD979E929912CF0001AEC13 /* AddCityViewController.swift in Sources */,
 				4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */,
 				4FB3D5372993854200633046 /* AddCityViewModel.swift in Sources */,

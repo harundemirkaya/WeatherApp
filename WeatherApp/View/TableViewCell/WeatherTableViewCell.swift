@@ -89,7 +89,7 @@ class WeatherTableViewCell: UITableViewCell {
         
         addSubview(lblLowHeat)
         lblLowHeat.leadingAnchor.constraint(equalTo: lblHighHeat.trailingAnchor, constant: 10).isActive = true
-        lblLowHeat.topAnchor.constraint(equalTo: lblHighHeat.topAnchor).isActive = true
+        lblLowHeat.topAnchor.constraint(equalTo: textLabel!.bottomAnchor, constant: 32).isActive = true
         lblLowHeat.layoutIfNeeded()
         
         addSubview(lblCityName)

@@ -39,6 +39,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.allowsSelection = false
+        table.separatorStyle = .none
         return table
     }()
     
@@ -86,26 +87,6 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         "19°",
     ]
     
-    // MARK: -Cities Defined
-    var cities = [City]()
-    
-    // MARK: -City Temperatures Defined
-    var cityTemperatures = [Measurement<UnitTemperature>]()
-    var cityHighTemperatures = [Measurement<UnitTemperature>]()
-    var cityLowTemperatures = [Measurement<UnitTemperature>]()
-    
-    // MARK: -City Weather State Defined
-    var cityState = [WeatherCondition]() {
-        didSet{
-            isCompleted += 1
-            if isCompleted == 81{
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
     // MARK: -ViewModel Defined
     var addCityViewModel = AddCityViewModel()
     
@@ -117,6 +98,27 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: -Spinner Defined
     var spinner = Spinner()
+    
+    // MARK: -CityCell Model Defined
+    var cityCell = [CityCell](){
+        didSet{
+            filteredCityCell = cityCell
+            tableView.reloadData()
+        }
+    }
+    var filteredCityCell = [CityCell](){
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    
+    var tmp = 0{
+        didSet{
+            Task{
+                cityCell = await addCityViewModel.getWeather()
+            }
+        }
+    }
     
     
     // MARK: -ViewDidLoad
@@ -140,47 +142,67 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // MARK: ViewModel
         addCityViewModel.addCityVC = self
-        addCityViewModel.getWeather()
+        tmp = 5
         
         spinner.startIndicator(view: view)
     }
     
+    // MARK: -CloseKeyboard Function
     @objc func closeKeyboard(){
         searchBar.endEditing(true)
     }
     
+    // MARK: -Back Screen Function
     @objc func btnBackTarget(){
         let homeVC = HomeViewController()
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true)
     }
     
+    // MARK: -TableView Configure
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isCompleted
+        return filteredCityCell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         spinner.stopIndicator(view: view)
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
         cell.contentView.backgroundColor = UIColor.clear
-        cell.textLabel?.text = cityTemperatures[indexPath.row].description
-        cell.lblCityName.text = cities[indexPath.row].name
-        cell.lblHighHeat.text = "H: " + cityHighTemperatures[indexPath.row].description
-        cell.lblLowHeat.text = "L: " + cityLowTemperatures[indexPath.row].description
-        cell.lblWeatherState.text = cityState[indexPath.row].description
-        if cityState[indexPath.row].description == "Mostly Clear"{
+        cell.textLabel?.textColor = .white
+        
+        cell.textLabel?.text = filteredCityCell[indexPath.row].temperatures.description
+        cell.lblCityName.text = filteredCityCell[indexPath.row].cityName
+        cell.lblHighHeat.text = "H: " + filteredCityCell[indexPath.row].highTemperatures.description
+        cell.lblLowHeat.text = "L: " + filteredCityCell[indexPath.row].lowTemperatures.description
+        cell.lblWeatherState.text = filteredCityCell[indexPath.row].weatherState.description
+        if filteredCityCell[indexPath.row].weatherState.description == "Mostly Clear"{
             cell.imgMidRain.image = UIImage(named: "breezy")
-        } else if cityState[indexPath.row].description == "Cloudy"{
+        } else if filteredCityCell[indexPath.row].weatherState.description == "Cloudy"{
             cell.imgMidRain.image = UIImage(named: "partly-cloudly")
         } else{
             cell.imgMidRain.image = UIImage(named: "flurries")
         }
-        cell.textLabel?.textColor = .white
         imgView = (cell.backgroundView)!
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return imgView.frame.size.height + 50
+    }
+    
+    // MARK: -SearchBar Configure
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCityCell = []
+        if searchText == ""{
+            filteredCityCell = cityCell
+        } else{
+            for city in cityCell{
+                if city.cityName.lowercased().contains(searchText.lowercased()){
+                    filteredCityCell.append(city)
+                }
+            }
+        }
+        self.tableView.reloadData()
     }
 }
