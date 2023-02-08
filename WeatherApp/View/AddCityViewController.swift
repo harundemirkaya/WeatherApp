@@ -38,7 +38,6 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         table.backgroundColor = .clear
         table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.allowsSelection = false
         table.separatorStyle = .none
         return table
     }()
@@ -137,6 +136,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // MARK: Search Bar Config
         searchBar.delegate = self
+        searchBar.isHidden = true
         tableView.tableHeaderView = searchBar
         searchBar.inputAccessoryView = btnCloseKeyboard
         
@@ -166,6 +166,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         spinner.stopIndicator(view: view)
+        searchBar.isHidden = false
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
         cell.contentView.backgroundColor = UIColor.clear
         cell.textLabel?.textColor = .white
@@ -204,5 +205,15 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         self.tableView.reloadData()
+    }
+    
+    // MARK: -Table Select Row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        UserDefaults.standard.set(filteredCityCell[indexPath.row].cityName, forKey: "city")
+        UserDefaults.standard.set(filteredCityCell[indexPath.row].temperatures.description, forKey: "temperature")
+        UserDefaults.standard.set(filteredCityCell[indexPath.row].highTemperatures.description, forKey: "highTemperature")
+        UserDefaults.standard.set(filteredCityCell[indexPath.row].lowTemperatures.description, forKey: "lowTemperature")
+        btnBackTarget()
     }
 }

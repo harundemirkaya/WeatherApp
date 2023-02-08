@@ -10,7 +10,7 @@ import CoreLocation
 import WeatherKit
 
 // MARK: -WeatherViewModel Class
-class WeatherViewModel{
+class HomeViewModel{
     
     // MARK: -Define
     
@@ -39,6 +39,7 @@ class WeatherViewModel{
     func setWeather(){
         homeVC?.hourlyForecast = weather?.hourlyForecast
         homeVC?.weeklyForecast = weather?.dailyForecast
+        homeVC?.currentWeather = weather
     }
     
     func getUserLocation(locationManager: CLLocationManager, delegate: CLLocationManagerDelegate){

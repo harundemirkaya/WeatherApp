@@ -8,17 +8,20 @@
 import UIKit
 import CoreLocation
 import WeatherKit
+import MapKit
 
 // MARK: -ViewController Class
 class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerDelegate {
 
     // MARK: -Define
     
+    // MARK: -Current City
+    var currentCity = String()
+    
     // MARK: Labels Defined
     var lblCityName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "İstanbul"
         label.font = UIFont.fontSFProDisplay(size: 34)
         label.textAlignment = .center
         label.textColor = .white
@@ -28,7 +31,6 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var lblHeat: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "19°"
         label.font = UIFont.fontSFProDisplay(size: 96)
         label.textAlignment = .center
         label.textColor = .white
@@ -48,7 +50,6 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var lblHighHeat: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "H:24°"
         label.font = UIFont.fontSFProDisplay(size: 20)
         label.textAlignment = .center
         label.textColor = .white
@@ -58,7 +59,6 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var lblLowHeat: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "L:18°"
         label.font = UIFont.fontSFProDisplay(size: 20)
         label.textAlignment = .center
         label.textColor = .white
@@ -225,7 +225,7 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     let locationManager = CLLocationManager()
     
     // MARK: -WeatherViewModel Defined
-    var weatherViewModel = WeatherViewModel()
+    var weatherViewModel = HomeViewModel()
     
     // MARK: -Date Defined
     var date: String {
@@ -240,6 +240,9 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var hourlyForecast: Forecast<HourWeather>? {
         didSet{
             setDataHourly()
+            lblHeat.text = UserDefaults.standard.string(forKey: "temperature") ?? currentWeather?.currentWeather.temperature.description
+            lblHighHeat.text = UserDefaults.standard.string(forKey: "highTemperature") ?? currentWeather?.dailyForecast[0].highTemperature.description
+            lblLowHeat.text = UserDefaults.standard.string(forKey: "lowTemperature") ?? currentWeather?.dailyForecast[0].lowTemperature.description
         }
     }
     
@@ -253,6 +256,9 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
             setDataWeekly()
         }
     }
+    
+    // MARK: -All User Location Weather Data
+    var currentWeather: Weather?
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -350,6 +356,13 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         }
         locationManager.stopUpdatingLocation()
         weatherViewModel.getWeather(location: location)
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let firstPlacemark = placemarks?.first {
+                self.currentCity = firstPlacemark.locality ?? "*"
+            }
+            self.lblCityName.text = UserDefaults.standard.string(forKey: "city") ?? self.currentCity
+        }
     }
     
     func setDataHourly(){
