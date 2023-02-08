@@ -16,6 +16,7 @@
 		4F379648298D280C00F60836 /* SF-Pro-Display.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F379647298D280C00F60836 /* SF-Pro-Display.ttf */; };
 		4FB3D5372993854200633046 /* AddCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D5362993854200633046 /* AddCityViewModel.swift */; };
 		4FB3D53D299390D500633046 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D53C299390D500633046 /* City.swift */; };
+		4FB3D53F2993ACCC00633046 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3D53E2993ACCC00633046 /* Spinner.swift */; };
 		4FD979E32991153A001AEC13 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E22991153A001AEC13 /* Constraints.swift */; };
 		4FD979E52991156C001AEC13 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E42991156C001AEC13 /* Fonts.swift */; };
 		4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */; };
@@ -36,6 +37,7 @@
 		4F379647298D280C00F60836 /* SF-Pro-Display.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display.ttf"; sourceTree = "<group>"; };
 		4FB3D5362993854200633046 /* AddCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewModel.swift; sourceTree = "<group>"; };
 		4FB3D53C299390D500633046 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		4FB3D53E2993ACCC00633046 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		4FD979E22991153A001AEC13 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		4FD979E42991156C001AEC13 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSetup.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4F379630298D24B100F60836 /* HomeViewController.swift */,
 				4FD979E629911D42001AEC13 /* ScrollViewSetup.swift */,
 				4FD979E829912CF0001AEC13 /* AddCityViewController.swift */,
+				4FB3D53E2993ACCC00633046 /* Spinner.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				4FD979E729911D42001AEC13 /* ScrollViewSetup.swift in Sources */,
 				4FB3D5372993854200633046 /* AddCityViewModel.swift in Sources */,
 				4FD979E52991156C001AEC13 /* Fonts.swift in Sources */,
+				4FB3D53F2993ACCC00633046 /* Spinner.swift in Sources */,
 				4FB3D53D299390D500633046 /* City.swift in Sources */,
 				4F379631298D24B100F60836 /* HomeViewController.swift in Sources */,
 				4F37962D298D24B100F60836 /* AppDelegate.swift in Sources */,

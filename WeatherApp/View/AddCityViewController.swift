@@ -115,6 +115,9 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: -City Data is Completed? Defined
     var isCompleted = 0
     
+    // MARK: -Spinner Defined
+    var spinner = Spinner()
+    
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -138,6 +141,8 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         // MARK: ViewModel
         addCityViewModel.addCityVC = self
         addCityViewModel.getWeather()
+        
+        spinner.startIndicator(view: view)
     }
     
     @objc func closeKeyboard(){
@@ -155,6 +160,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        spinner.stopIndicator(view: view)
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
         cell.contentView.backgroundColor = UIColor.clear
         cell.textLabel?.text = cityTemperatures[indexPath.row].description
