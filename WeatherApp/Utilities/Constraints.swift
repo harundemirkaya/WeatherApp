@@ -39,13 +39,13 @@ public extension UIView{
     func lblHighHeat(_ view: UIView, lblMostlyClear: UILabel){
         view.addSubview(self)
         topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
-        leadingAnchor.constraint(equalTo: lblMostlyClear.leadingAnchor).isActive = true
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
-    func lblLowHeat(_ view: UIView, lblMostlyClear: UILabel){
+    func lblLowHeat(_ view: UIView, lblMostlyClear: UILabel, lblHighHeat: UILabel){
         view.addSubview(self)
         topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
-        trailingAnchor.constraint(equalTo: lblMostlyClear.trailingAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: lblHighHeat.trailingAnchor, constant: 20).isActive = true
     }
     
     func imgHouseConstraints(_ view: UIView, lblHighorLowHeat: UILabel){

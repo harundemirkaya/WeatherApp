@@ -39,7 +39,11 @@ class HomeViewModel{
     func setWeather(){
         homeVC?.hourlyForecast = weather?.hourlyForecast
         homeVC?.weeklyForecast = weather?.dailyForecast
-        homeVC?.currentWeather = weather
+        DispatchQueue.main.async {
+            self.homeVC?.lblHeat.text = self.weather?.currentWeather.temperature.description
+            self.homeVC?.lblHighHeat.text = self.weather?.dailyForecast[0].highTemperature.description
+            self.homeVC?.lblLowHeat.text = self.weather?.dailyForecast[0].lowTemperature.description
+        }
     }
     
     func getUserLocation(locationManager: CLLocationManager, delegate: CLLocationManagerDelegate){

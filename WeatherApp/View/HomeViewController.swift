@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var lblHeat: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.fontSFProDisplay(size: 96)
+        label.font = UIFont.fontSFProDisplay(size: 50)
         label.textAlignment = .center
         label.textColor = .white
         return label
@@ -240,9 +240,6 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     var hourlyForecast: Forecast<HourWeather>? {
         didSet{
             setDataHourly()
-            lblHeat.text = UserDefaults.standard.string(forKey: "temperature") ?? currentWeather?.currentWeather.temperature.description
-            lblHighHeat.text = UserDefaults.standard.string(forKey: "highTemperature") ?? currentWeather?.dailyForecast[0].highTemperature.description
-            lblLowHeat.text = UserDefaults.standard.string(forKey: "lowTemperature") ?? currentWeather?.dailyForecast[0].lowTemperature.description
         }
     }
     
@@ -277,7 +274,7 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         lblHeat.lblHeeatConstraints(view, lblCityName: lblCityName)
         lblMostlyClear.lblMostlyClearConstraints(view, lblHeat: lblHeat)
         lblHighHeat.lblHighHeat(view, lblMostlyClear: lblMostlyClear)
-        lblLowHeat.lblLowHeat(view, lblMostlyClear: lblMostlyClear)
+        lblLowHeat.lblLowHeat(view, lblMostlyClear: lblMostlyClear, lblHighHeat: lblHighHeat)
         imgHouse.imgHouseConstraints(view, lblHighorLowHeat: lblHighHeat)
         detailStackView.stackViewConstraints(view)
         
