@@ -21,7 +21,7 @@ class WeatherTableViewCell: UITableViewCell {
     }()
     
     var imgMidRain: UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: "mid-rain"))
+        let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()
@@ -71,11 +71,12 @@ class WeatherTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
+        separatorInset = .zero
         backgroundView = imgViewBackground
         backgroundView?.cellBackgroundViewConstraints(self)
         backgroundView?.layoutIfNeeded()
         
-        textLabel?.font = UIFont.fontSFProDisplay(size: 64)
+        textLabel?.font = UIFont.fontSFProDisplay(size: 40)
         textLabel?.translatesAutoresizingMaskIntoConstraints = false
         textLabel?.leadingAnchor.constraint(equalTo: imgViewBackground.leadingAnchor, constant: 20).isActive = true
         textLabel?.topAnchor.constraint(equalTo: imgViewBackground.topAnchor, constant: 28).isActive = true

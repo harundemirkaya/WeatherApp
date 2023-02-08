@@ -6,6 +6,7 @@
 //
 // MARK: -Import Libaries
 import UIKit
+import WeatherKit
 
 // MARK: -AddCityViewController Class
 class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -85,8 +86,35 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         "19°",
     ]
     
+    // MARK: -Cities Defined
+    var cities = [City]()
+    
+    // MARK: -City Temperatures Defined
+    var cityTemperatures = [Measurement<UnitTemperature>]()
+    var cityHighTemperatures = [Measurement<UnitTemperature>]()
+    var cityLowTemperatures = [Measurement<UnitTemperature>]()
+    
+    // MARK: -City Weather State Defined
+    var cityState = [WeatherCondition]() {
+        didSet{
+            isCompleted += 1
+            if isCompleted == 81{
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    // MARK: -ViewModel Defined
+    var addCityViewModel = AddCityViewModel()
+    
     // MARK: -Cell Height Set Tools Defined
     var imgView = UIView()
+    
+    // MARK: -City Data is Completed? Defined
+    var isCompleted = 0
+    
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -106,6 +134,10 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBar.delegate = self
         tableView.tableHeaderView = searchBar
         searchBar.inputAccessoryView = btnCloseKeyboard
+        
+        // MARK: ViewModel
+        addCityViewModel.addCityVC = self
+        addCityViewModel.getWeather()
     }
     
     @objc func closeKeyboard(){
@@ -119,13 +151,24 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weathers.count
+        return isCompleted
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
         cell.contentView.backgroundColor = UIColor.clear
-        cell.textLabel?.text = weathers[indexPath.row]
+        cell.textLabel?.text = cityTemperatures[indexPath.row].description
+        cell.lblCityName.text = cities[indexPath.row].name
+        cell.lblHighHeat.text = "H: " + cityHighTemperatures[indexPath.row].description
+        cell.lblLowHeat.text = "L: " + cityLowTemperatures[indexPath.row].description
+        cell.lblWeatherState.text = cityState[indexPath.row].description
+        if cityState[indexPath.row].description == "Mostly Clear"{
+            cell.imgMidRain.image = UIImage(named: "breezy")
+        } else if cityState[indexPath.row].description == "Cloudy"{
+            cell.imgMidRain.image = UIImage(named: "partly-cloudly")
+        } else{
+            cell.imgMidRain.image = UIImage(named: "flurries")
+        }
         cell.textLabel?.textColor = .white
         imgView = (cell.backgroundView)!
         return cell
