@@ -239,12 +239,20 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
     // MARK: -HourlyForecast Array Defined
     var hourlyForecast: Forecast<HourWeather>? {
         didSet{
-            setData()
+            setDataHourly()
         }
     }
     
     // MARK: -Temperatures Defined
-    var temperatures = [Measurement<UnitTemperature>]()
+    var temperaturesHourly = [Measurement<UnitTemperature>]()
+    var temperaturesWeekly = [Measurement<UnitTemperature>]()
+    
+    // MARK: -WeeklyForecast Array Defined
+    var weeklyForecast: Forecast<DayWeather>? {
+        didSet{
+            setDataWeekly()
+        }
+    }
     
     // MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -299,11 +307,11 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         // MARK: Hourly ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
         contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Hour", scrollItems: &scrollItemsHourly, contentView: self.contentViewHourly)
+        scrollViewSetupHourly(scrollItems: &scrollItemsHourly, contentView: self.contentViewHourly)
         // MARK: Weekly ScrollView
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
         contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
-        scrollViewSetup(weekOrHour: "Week", scrollItems: &scrollItemsWeekly, contentView: self.contentViewWeekly)
+        scrollViewSetupWeekly(scrollItems: &scrollItemsWeekly, contentView: self.contentViewWeekly)
         
         weatherViewModel.homeVC = self
         weatherViewModel.getUserLocation(locationManager: locationManager, delegate: self)
@@ -344,24 +352,40 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         weatherViewModel.getWeather(location: location)
     }
     
-    func setData(){
+    func setDataHourly(){
         let dateFormatteer = DateFormatter()
         dateFormatteer.dateFormat = "yyyy-MM-dd"
         var otherDate = ""
         for forecast in hourlyForecast!{
             otherDate = dateFormatteer.string(from: forecast.date)
             if otherDate.prefix(10) == date{
-                temperatures.append(forecast.temperature)
+                temperaturesHourly.append(forecast.temperature)
             }
         }
         for i in 0...23{
             DispatchQueue.main.async {
                 let label = self.scrollItemsHourly[i].subviews[2] as! UILabel
-                label.text = self.temperatures[i].description
+                label.text = self.temperaturesHourly[i].description
             }
         }
     }
-
     
+    func setDataWeekly(){
+        let dateFormatteer = DateFormatter()
+        dateFormatteer.dateFormat = "yyyy-MM-dd"
+        var otherDate = ""
+        for forecast in weeklyForecast!{
+            otherDate = dateFormatteer.string(from: forecast.date)
+            if otherDate.prefix(10) > date{
+                temperaturesWeekly.append(forecast.highTemperature)
+            }
+        }
+        for i in 0...8{
+            DispatchQueue.main.async {
+                let label = self.scrollItemsWeekly[i].subviews[2] as! UILabel
+                label.text = self.temperaturesWeekly[i].description
+            }
+        }
+    }
 }
 

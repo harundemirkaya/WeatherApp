@@ -38,6 +38,7 @@ class WeatherViewModel{
     
     func setWeather(){
         homeVC?.hourlyForecast = weather?.hourlyForecast
+        homeVC?.weeklyForecast = weather?.dailyForecast
     }
     
     func getUserLocation(locationManager: CLLocationManager, delegate: CLLocationManagerDelegate){
