@@ -51,6 +51,7 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.fontSFProDisplay(size: 20)
+        label.text = "H: "
         label.textAlignment = .center
         label.textColor = .white
         return label
@@ -60,6 +61,16 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.fontSFProDisplay(size: 20)
+        label.textAlignment = .center
+        label.text = "  L: "
+        label.textColor = .white
+        return label
+    }()
+    
+    var lblHighLowBrace: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.fontSFProDisplay(size: 15)
         label.textAlignment = .center
         label.textColor = .white
         return label
@@ -262,7 +273,6 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         super.viewDidLoad()
         // MARK: Screen
         view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         // MARK: TabBar Delegate
         detailsTabBar.delegate = self
@@ -273,8 +283,9 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         lblCityName.lblCityNameConstraints(view)
         lblHeat.lblHeeatConstraints(view, lblCityName: lblCityName)
         lblMostlyClear.lblMostlyClearConstraints(view, lblHeat: lblHeat)
-        lblHighHeat.lblHighHeat(view, lblMostlyClear: lblMostlyClear)
-        lblLowHeat.lblLowHeat(view, lblMostlyClear: lblMostlyClear, lblHighHeat: lblHighHeat)
+        lblHighLowBrace.lblHighLowBraceConstraints(view, lblMostlyClear: lblMostlyClear)
+        lblHighHeat.lblHighHeat(view, lblMostlyClear: lblMostlyClear, lblBrace: lblHighLowBrace)
+        lblLowHeat.lblLowHeat(view, lblMostlyClear: lblMostlyClear, lblBrace: lblHighLowBrace)
         imgHouse.imgHouseConstraints(view, lblHighorLowHeat: lblHighHeat)
         detailStackView.stackViewConstraints(view)
         
@@ -309,11 +320,11 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
         
         // MARK: Hourly ScrollView
         scrollViewHourly.scrollViewConstraints(hourlyView, tabBar: detailsTabBar)
-        contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar)
+        contentViewHourly.contentViewConstraints(view: scrollViewHourly, tabBar: detailsTabBar, count: 1920)
         scrollViewSetupHourly(scrollItems: &scrollItemsHourly, contentView: self.contentViewHourly)
         // MARK: Weekly ScrollView
         scrollViewWeekly.scrollViewConstraints(weeklyView, tabBar: detailsTabBar)
-        contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar)
+        contentViewWeekly.contentViewConstraints(view: scrollViewWeekly, tabBar: detailsTabBar, count: 720)
         scrollViewSetupWeekly(scrollItems: &scrollItemsWeekly, contentView: self.contentViewWeekly)
         
         weatherViewModel.homeVC = self
@@ -409,5 +420,18 @@ class HomeViewController: UIViewController, UITabBarDelegate, CLLocationManagerD
             }
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case .denied:
+               print("error")
+            case .authorizedAlways:
+                weatherViewModel.getWeather(location: manager.location!)
+            case .authorizedWhenInUse:
+                weatherViewModel.getWeather(location: manager.location!)
+            default:
+                break
+            }
+        }
 }
 

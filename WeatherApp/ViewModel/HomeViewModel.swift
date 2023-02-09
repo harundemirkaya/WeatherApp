@@ -23,6 +23,9 @@ class HomeViewModel{
     // MARK: Hourly Forecast
     var weather: Weather?
     
+    // MARK: -Label Text Counter
+    var counter = 0
+    
     // MARK: Weather Kit
     func getWeather(location: CLLocation){
         Task{
@@ -40,9 +43,12 @@ class HomeViewModel{
         homeVC?.hourlyForecast = weather?.hourlyForecast
         homeVC?.weeklyForecast = weather?.dailyForecast
         DispatchQueue.main.async {
-            self.homeVC?.lblHeat.text = self.weather?.currentWeather.temperature.description
-            self.homeVC?.lblHighHeat.text = self.weather?.dailyForecast[0].highTemperature.description
-            self.homeVC?.lblLowHeat.text = self.weather?.dailyForecast[0].lowTemperature.description
+            self.counter += 1
+            if self.counter == 2{
+                self.homeVC?.lblHeat.text = self.weather?.currentWeather.temperature.description
+                self.homeVC?.lblHighHeat.text = (self.homeVC?.lblHighHeat.text)! + (self.weather?.dailyForecast[0].highTemperature.description)!
+                self.homeVC?.lblLowHeat.text = (self.homeVC?.lblLowHeat.text)! + (self.weather?.dailyForecast[0].lowTemperature.description)!
+            }
         }
     }
     

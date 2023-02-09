@@ -79,13 +79,6 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         return btn
     }()
     
-    var weathers: [String] = [
-        "19°",
-        "19°",
-        "19°",
-        "19°",
-    ]
-    
     // MARK: -ViewModel Defined
     var addCityViewModel = AddCityViewModel()
     
@@ -115,6 +108,9 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         didSet{
             Task{
                 cityCell = await addCityViewModel.getWeather()
+                cityCell += await addCityViewModel.getWeather2()
+                cityCell += await addCityViewModel.getWeather3()
+                cityCell += await addCityViewModel.getWeather4()
             }
         }
     }
@@ -145,6 +141,10 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
         tmp = 5
         
         spinner.startIndicator(view: view)
+        
+        lblTitle.isUserInteractionEnabled = true
+        let tapTitleBack = UITapGestureRecognizer(target: self, action: #selector(btnBackTarget))
+        lblTitle.addGestureRecognizer(tapTitleBack)
     }
     
     // MARK: -CloseKeyboard Function
@@ -156,7 +156,7 @@ class AddCityViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func btnBackTarget(){
         let homeVC = HomeViewController()
         homeVC.modalPresentationStyle = .fullScreen
-        present(homeVC, animated: true)
+        present(homeVC, animated: false)
     }
     
     // MARK: -TableView Configure

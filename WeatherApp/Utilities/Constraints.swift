@@ -13,8 +13,8 @@ public extension UIView{
     func imgBackgroundConstraints(_ view: UIView){
         view.addSubview(self)
         topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
@@ -36,16 +36,22 @@ public extension UIView{
         topAnchor.constraint(equalTo: lblHeat.bottomAnchor, constant: 10).isActive = true
     }
     
-    func lblHighHeat(_ view: UIView, lblMostlyClear: UILabel){
+    func lblHighLowBraceConstraints(_ view: UIView, lblMostlyClear: UILabel){
         view.addSubview(self)
         topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
-    func lblLowHeat(_ view: UIView, lblMostlyClear: UILabel, lblHighHeat: UILabel){
+    func lblHighHeat(_ view: UIView, lblMostlyClear: UILabel, lblBrace: UILabel){
         view.addSubview(self)
         topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
-        leadingAnchor.constraint(equalTo: lblHighHeat.trailingAnchor, constant: 20).isActive = true
+        trailingAnchor.constraint(equalTo: lblBrace.leadingAnchor, constant: 10).isActive = true
+    }
+    
+    func lblLowHeat(_ view: UIView, lblMostlyClear: UILabel, lblBrace: UILabel){
+        view.addSubview(self)
+        topAnchor.constraint(equalTo: lblMostlyClear.bottomAnchor, constant: 5).isActive = true
+        leadingAnchor.constraint(equalTo: lblBrace.trailingAnchor, constant: 10).isActive = true
     }
     
     func imgHouseConstraints(_ view: UIView, lblHighorLowHeat: UILabel){
@@ -117,11 +123,11 @@ public extension UIView{
         trailingAnchor.constraint(equalTo: tabBar.trailingAnchor).isActive = true
     }
     
-    func contentViewConstraints(view: UIView, tabBar: UITabBar){
+    func contentViewConstraints(view: UIView, tabBar: UITabBar, count: CGFloat){
         view.addSubview(self)
         topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        widthAnchor.constraint(equalToConstant: 1920).isActive = true
+        widthAnchor.constraint(equalToConstant: count).isActive = true
         heightAnchor.constraint(equalToConstant: 160).isActive = true
         trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }

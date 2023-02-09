@@ -81,7 +81,6 @@ class WeatherTableViewCell: UITableViewCell {
         textLabel?.leadingAnchor.constraint(equalTo: imgViewBackground.leadingAnchor, constant: 20).isActive = true
         textLabel?.topAnchor.constraint(equalTo: imgViewBackground.topAnchor, constant: 28).isActive = true
         
-        
         addSubview(lblHighHeat)
         lblHighHeat.topAnchor.constraint(equalTo: textLabel!.bottomAnchor, constant: 26).isActive = true
         lblHighHeat.leadingAnchor.constraint(equalTo: textLabel!.leadingAnchor).isActive = true
@@ -108,6 +107,7 @@ class WeatherTableViewCell: UITableViewCell {
         imgMidRain.topAnchor.constraint(equalTo: imgViewBackground.topAnchor, constant: -40).isActive = true
         imgMidRain.trailingAnchor.constraint(equalTo: imgViewBackground.trailingAnchor).isActive = true
         imgMidRain.layoutIfNeeded()
+        
         
     }
     

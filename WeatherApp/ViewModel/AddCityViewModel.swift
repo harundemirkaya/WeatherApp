@@ -119,7 +119,64 @@ class AddCityViewModel{
     // MARK: Weather Kit
     func getWeather() async -> [CityCell]{
         if !cities.isEmpty{
-            for i in 0...80{
+            for i in 0...20{
+                let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
+                do{
+                    let result = try await service.weather(for: location)
+                    let city = CityCell(cityName: cities[i].name, temperatures: result.currentWeather.temperature, highTemperatures: result.dailyForecast[0].highTemperature, lowTemperatures: result.dailyForecast[0].lowTemperature, weatherState: result.currentWeather.condition.description)
+                    cityCell.append(city)
+                } catch{
+                    print("")
+                }
+                
+            }
+            //addCityVC?.cityCell = cityCell
+            return cityCell
+        }
+        return []
+    }
+    
+    func getWeather2() async -> [CityCell]{
+        if !cities.isEmpty{
+            for i in 21...40{
+                let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
+                do{
+                    let result = try await service.weather(for: location)
+                    let city = CityCell(cityName: cities[i].name, temperatures: result.currentWeather.temperature, highTemperatures: result.dailyForecast[0].highTemperature, lowTemperatures: result.dailyForecast[0].lowTemperature, weatherState: result.currentWeather.condition.description)
+                    cityCell.append(city)
+                } catch{
+                    print("")
+                }
+                
+            }
+            //addCityVC?.cityCell = cityCell
+            return cityCell
+        }
+        return []
+    }
+    
+    func getWeather3() async -> [CityCell]{
+        if !cities.isEmpty{
+            for i in 41...60{
+                let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
+                do{
+                    let result = try await service.weather(for: location)
+                    let city = CityCell(cityName: cities[i].name, temperatures: result.currentWeather.temperature, highTemperatures: result.dailyForecast[0].highTemperature, lowTemperatures: result.dailyForecast[0].lowTemperature, weatherState: result.currentWeather.condition.description)
+                    cityCell.append(city)
+                } catch{
+                    print("")
+                }
+                
+            }
+            //addCityVC?.cityCell = cityCell
+            return cityCell
+        }
+        return []
+    }
+    
+    func getWeather4() async -> [CityCell]{
+        if !cities.isEmpty{
+            for i in 61...80{
                 let location = CLLocation(latitude: cities[i].latitude, longitude: cities[i].longitude)
                 do{
                     let result = try await service.weather(for: location)
